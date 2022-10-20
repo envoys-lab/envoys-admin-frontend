@@ -1,25 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import Bulb from './components/Bulb';
+import LoginForm from './components/LoginForm';
+
+import { Web3ReactProvider } from '@web3-react/core'
+import { Web3Provider } from '@ethersproject/providers'
+
+function getLibrary(provider: any): Web3Provider {
+  const library = new Web3Provider(provider)
+  library.pollingInterval = 12000
+  return library
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Web3ReactProvider getLibrary={getLibrary}>
+      <Container>
+        <Row style={{marginTop: '10%'}}>
+          <Col md={{offset: 4, span: 4}}>
+            <LoginForm />
+          </Col>
+        </Row>
+      </Container>
+    </Web3ReactProvider>
   );
 }
 
