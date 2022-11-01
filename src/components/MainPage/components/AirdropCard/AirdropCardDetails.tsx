@@ -3,6 +3,7 @@ import { Form, ListGroup } from "react-bootstrap";
 import { FaSync } from "react-icons/fa";
 import useTokenInfo from "../../../../hooks/useTokenInfo";
 import { getErc20Contract } from "../../../../utils/contractHelpers";
+import { BaseExplorerUrl, CURRENT_CHAIN_ID } from "../../../../utils/currentChainId";
 import { getProviderOrSigner } from "../../../../utils/getProviderOrSigner";
 
 const AirdropCardDetails = ({address}: {address: string}) => {
@@ -21,8 +22,8 @@ const AirdropCardDetails = ({address}: {address: string}) => {
         <ListGroup.Item>Symbol: {symbol}</ListGroup.Item>
         <ListGroup.Item>Decimals: {decimals}</ListGroup.Item>
         <ListGroup.Item>
-            <a href={`https://testnet.bscscan.com/token/${address}`} target="_blank">Token</a>
-            <br></br><a href={`https://testnet.bscscan.com/token/${address}`} target="_blank">Airdrop</a>
+            <a href={`${BaseExplorerUrl[CURRENT_CHAIN_ID]}/token/${address}`} target="_blank">Token</a>
+            <br></br><a href={`${BaseExplorerUrl[CURRENT_CHAIN_ID]}/token/${address}`} target="_blank">Airdrop</a>
         </ListGroup.Item>
     </ListGroup>
 }
