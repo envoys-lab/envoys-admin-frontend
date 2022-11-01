@@ -1,33 +1,36 @@
-import { useWeb3React } from "@web3-react/core";
-import React from "react";
-import { Button, Card, Form, FormText, InputGroup } from "react-bootstrap";
-import { getErc20Contract } from "../../../../utils/contractHelpers";
-import { getProviderOrSigner } from "../../../../utils/getProviderOrSigner";
-import ERC20Input from "../../../ERC20Input";
-import AirdropCardDetails from "./AirdropCardDetails";
-
+import { useWeb3React } from '@web3-react/core'
+import React from 'react'
+import { Button, Card, Form, FormText, InputGroup } from 'react-bootstrap'
+import { getErc20Contract } from '../../../../utils/contractHelpers'
+import { getProviderOrSigner } from '../../../../utils/getProviderOrSigner'
+import ERC20Input from '../../../ERC20Input'
+import AirdropCardDetails from './AirdropCardDetails'
 
 const AirdropCard = () => {
-    const [address, setAddress] = React.useState<string | undefined>(undefined);
+  const [address, setAddress] = React.useState<string | undefined>(undefined)
 
-    return <Card border="success">
-        <Card.Header>Airdrop</Card.Header>
-        <Card.Body>
-            <Form>
-                <Form.Group>
-                    <Form.Label>
-                        ERC20 Token Address
-                    </Form.Label>
+  return (
+    <Card border="success">
+      <Card.Header>Airdrop</Card.Header>
+      <Card.Body>
+        <Form>
+          <Form.Group>
+            <Form.Label>ERC20 Token Address</Form.Label>
 
-                    <InputGroup>
-                        <Form.Control type="text" placeholder="Paste token address here" onChange={e => setAddress(e.target.value)} />
-                    </InputGroup>
-                    {address && <AirdropCardDetails address={address} />}
-                </Form.Group>
-            </Form>
-            {/* <Button variant="primary">Confirm</Button> */}
-        </Card.Body>
-    </Card>;
+            <InputGroup>
+              <Form.Control
+                type="text"
+                placeholder="Paste token address here"
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </InputGroup>
+            {address && <AirdropCardDetails address={address} />}
+          </Form.Group>
+        </Form>
+        {/* <Button variant="primary">Confirm</Button> */}
+      </Card.Body>
+    </Card>
+  )
 }
- 
-export default AirdropCard;
+
+export default AirdropCard

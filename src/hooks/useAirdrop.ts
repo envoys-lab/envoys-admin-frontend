@@ -1,5 +1,5 @@
 const useAirdrop = (address: string) => {
-    // return (  );
+  // return (  );
 }
- 
-export default useAirdrop;
+
+export default useAirdrop
