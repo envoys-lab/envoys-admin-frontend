@@ -1,6 +1,6 @@
 import { useWeb3React } from "@web3-react/core";
 import React from "react";
-import { Button, Card, Form, InputGroup } from "react-bootstrap";
+import { Button, Card, Form, FormText, InputGroup } from "react-bootstrap";
 import { getErc20Contract } from "../../../../utils/contractHelpers";
 import { getProviderOrSigner } from "../../../../utils/getProviderOrSigner";
 import ERC20Input from "../../../ERC20Input";

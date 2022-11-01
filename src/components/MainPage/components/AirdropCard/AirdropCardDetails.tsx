@@ -1,14 +1,19 @@
 import { useWeb3React } from "@web3-react/core";
-import { ListGroup } from "react-bootstrap";
+import { Form, ListGroup } from "react-bootstrap";
 import { FaSync } from "react-icons/fa";
 import useTokenInfo from "../../../../hooks/useTokenInfo";
 import { getErc20Contract } from "../../../../utils/contractHelpers";
 import { getProviderOrSigner } from "../../../../utils/getProviderOrSigner";
 
 const AirdropCardDetails = ({address}: {address: string}) => {
-    const {name, symbol, decimals, ready} =  useTokenInfo(address);
-    if(!ready) {
+    const {name, symbol, decimals, error, ready} =  useTokenInfo(address);
+
+    if(!ready && !error) {
         return <FaSync className="spinner" />
+    }
+
+    if(error) {
+        return <Form.Text className="text-danger">{error}</Form.Text>
     }
 
     return <ListGroup variant="flush">

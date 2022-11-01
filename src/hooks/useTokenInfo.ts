@@ -8,20 +8,23 @@ const useTokenInfo = (address: string) => {
     const [symbol, setSymbol] = React.useState<string>("");
     const [decimals, setDecimlas] = React.useState<number>(0);
     const [ready, setReady] = React.useState<boolean>(false);
+    const [error, setError] = React.useState<string | undefined>(undefined);
+
     const {library} = useWeb3React();
-    
+    const onError = (e: any) => {
+        setError(e.toString());
+    }
+    React.useEffect(() => {
+        setError(undefined);
+    }, [address]);
+
     React.useEffect(() => {
         if(!library) return;
 
         const token = getErc20Contract(address, library);
-        
-        // token.symbol().then(s => console.log("symbol", s));
-        // token.name().then(name => console.log("name", name));
-        // token.decimals().then(d => console.log("dec", d));
-
-        token.name().then(setName);
-        token.symbol().then(setSymbol);
-        token.decimals().then(setDecimlas);
+        token.name().then(setName).catch(onError);
+        token.symbol().then(setSymbol).catch(onError);
+        token.decimals().then(setDecimlas).catch(onError);
     }, [library]);
 
     React.useEffect(() => {
@@ -36,7 +39,8 @@ const useTokenInfo = (address: string) => {
         name,
         symbol,
         decimals,
-        ready
+        ready,
+        error
     }
 }
 
