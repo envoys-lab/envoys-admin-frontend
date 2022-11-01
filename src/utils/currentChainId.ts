@@ -11,3 +11,5 @@ export const BaseExplorerUrl = {
 const envChainId = parseInt(process.env.CHAIN_ID as string, 10);
 
 export const CURRENT_CHAIN_ID: ChainId = isNaN(envChainId) ? ChainId.Testnet : ChainId.Testnet;
+
+export const BaseExplorerUrlCurrent = BaseExplorerUrl[CURRENT_CHAIN_ID];
