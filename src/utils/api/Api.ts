@@ -46,13 +46,13 @@ class Api {
   public readonly endpoint: string
   private readonly net: AxiosInstance
 
-  constructor(url?: string) {
+  constructor(accessToken: string, url?: string) {
     this.endpoint = url ? url : (process.env.API_URL as string)
     this.net = axios.create({
       baseURL: this.endpoint,
       timeout: 5000,
       headers: {
-        authorization: `Token ${process.env.ACCESS_TOKEN as string}`,
+        authorization: `Token ${accessToken}`,
       },
     })
   }
