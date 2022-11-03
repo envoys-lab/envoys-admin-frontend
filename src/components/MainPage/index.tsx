@@ -15,7 +15,7 @@ const MainPage = () => {
   return (
     <StyledMainPage>
       <Row>
-        <Col md="4" as={'div'}>
+        <Col md="4">
           <CardWrapper>
             <AirdropCard />
           </CardWrapper>
