@@ -2,6 +2,7 @@ import { useWeb3React } from '@web3-react/core'
 import React from 'react'
 import { Button, Form, InputGroup } from 'react-bootstrap'
 import { FaSync } from 'react-icons/fa'
+import Api from '../../utils/api/Api'
 import ConnectWalletButton from '../ConnectWalletButton'
 
 const DisconnectButton = () => {
@@ -34,10 +35,15 @@ const LoginForm = ({ onContinue }: { onContinue: () => void }) => {
   React.useEffect(() => {
     if (accessToken.length === 0) return
 
-    const t = setTimeout(() => {
+    const t = setTimeout(async () => {
+      //const api = new Api(accessToken);
+      // TODO: implements logic to verify access token
+    
       !showWalletConnect && setShowWalletConnect(true)
       setFetchingAccessToken(false)
-    }, 1)
+
+    }, 1000)
+
     return () => clearTimeout(t)
   }, [accessToken])
 
