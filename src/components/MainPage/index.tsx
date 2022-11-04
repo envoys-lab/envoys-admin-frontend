@@ -19,6 +19,9 @@ const MainPage = () => {
           <CardWrapper>
             <AirdropCard />
           </CardWrapper>
+          <CardWrapper>
+            <AirdropCard />
+          </CardWrapper>
           {/*
                 <CardWrapper>
                     <SaleCard />

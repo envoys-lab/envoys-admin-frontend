@@ -8,7 +8,9 @@ import AirdropCardDetails from './AirdropCardDetails'
 
 const AirdropCard = () => {
   const [address, setAddress] = React.useState<string | undefined>(undefined)
-
+  const onChangeAddress = (newAddress: string) => {
+    setAddress(newAddress)
+  }
   return (
     <Card border="success">
       <Card.Header>Airdrop</Card.Header>
@@ -21,7 +23,7 @@ const AirdropCard = () => {
               <Form.Control
                 type="text"
                 placeholder="Paste token address here"
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={(e) => onChangeAddress(e.target.value)}
               />
             </InputGroup>
             {address && <AirdropCardDetails address={address} />}
