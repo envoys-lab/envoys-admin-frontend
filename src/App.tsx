@@ -1,12 +1,12 @@
 import React from 'react'
-import { Button, Col, Container, Row } from 'react-bootstrap'
-import Bulb from './components/Bulb'
+import { Col, Container, Row } from 'react-bootstrap'
 import LoginForm from './components/LoginForm'
 import './App.css'
 
 import { Web3ReactProvider } from '@web3-react/core'
 import { Web3Provider } from '@ethersproject/providers'
 import MainPage from './components/MainPage'
+import { AuthProvider, useAuthKey } from './contexts/AuthContext'
 
 function getLibrary(provider: any): Web3Provider {
   const library = new Web3Provider(provider)
@@ -14,32 +14,31 @@ function getLibrary(provider: any): Web3Provider {
   return library
 }
 
-function App() {
-  const [viewStatus, setViewStatus] = React.useState(0)
-  const showMain = () => {
-    console.log('show main')
-    setViewStatus(1)
-  }
-
-  return (
+function Providers() {
+  return <AuthProvider>
     <Web3ReactProvider getLibrary={getLibrary}>
-      <Container>
-        <Row style={viewStatus == 0 ? { marginTop: '10%' } : {}}>
-          {viewStatus == 0 && (
-            <Col md={{ offset: 4, span: 4 }}>
-              <LoginForm onContinue={showMain} />
-            </Col>
-          )}
-
-          {viewStatus == 1 && (
-            <Col>
-              <MainPage />
-            </Col>
-          )}
-        </Row>
-      </Container>
+      <App />
     </Web3ReactProvider>
+  </AuthProvider>
+}
+
+function App() {
+  const {authKey} = useAuthKey();
+  return (
+    <Container>
+      <Row style={authKey === undefined ? { marginTop: '10%' } : {}}>
+        {authKey === undefined ? (
+          <Col md={{ offset: 4, span: 4 }}>
+            <LoginForm />
+          </Col>
+        ) : (
+          <Col>
+            <MainPage />
+          </Col>
+        )}
+      </Row>
+    </Container>
   )
 }
 
-export default App
+export default Providers
