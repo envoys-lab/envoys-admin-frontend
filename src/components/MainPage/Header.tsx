@@ -7,7 +7,8 @@ import HiddenText from "../HiddenText";
 const StyledHeader = styled.div`
     background: black;
     color: white;
-    padding: 10px;
+    padding: 4px 10px;
+    margin-top: 4px;
 `;
 const Header = () => {
     const { account } = useWeb3React()
