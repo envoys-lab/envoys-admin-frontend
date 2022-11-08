@@ -1,22 +1,16 @@
 import React from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap';
-import { FaClosedCaptioning, FaWindowClose, FaXing } from 'react-icons/fa';
+import { FaWindowClose } from 'react-icons/fa';
 import styled from 'styled-components'
-
-
-const StyledPopupBlur = styled.div`
-    z-index: 2;
-    filter: blur(4px);
-`;
 
 const StyledPopupBg = styled.div`
     position: absolute;
-    background: rgba(0,0,0,0.2);
     left: 0;
     top: 0;
     min-width: 100vw;
     min-height: 100vh;
     z-index: 3;
+    background: rgba(0,0,0,0.4)
 `;
 const StyledPopup = styled.div`
 
@@ -43,46 +37,34 @@ export const PopupProvider = ({ children }: { children: React.ReactNode }) => {
   return <Context.Provider value={{ node, setNode }}>{children}</Context.Provider>
 }
 
-export const PopupBlur = ({ children }: { children: React.ReactNode }) => {
-    const {active} = usePopup()
-
-    if(active) {
-        return <StyledPopupBlur>
-            {children}
-        </StyledPopupBlur>
-    } else {
-        return <>
-            {children}
-        </>
-    }
-}
-
 
 export const Popup = () => {
     const { node, setPopup, active } = usePopup();
     const style = active ? {} : {
         display: "none"
     }
-    return <StyledPopupBg style={style}>
-        <StyledPopup>
-            <Container>
-                <Row>
-                    <Col md={{ offset: 4, span: 4 }} style={{marginTop: "10vh"}}>
-                        <Card>
-                            <Card.Header>
-                                Popup <FaWindowClose style={{cursor: "pointer"}} onClick={() => setPopup(undefined)} />
-                            </Card.Header>
-                            <Card.Body>
-                                {node}
-                            </Card.Body>
-                        </Card>
+    return <>
+        <StyledPopupBg style={style}>
+            <StyledPopup>
+                <Container>
+                    <Row>
+                        <Col md={{ offset: 4, span: 4 }} style={{marginTop: "10vh"}}>
+                            <Card>
+                                <Card.Header>
+                                    Popup <FaWindowClose style={{cursor: "pointer"}} onClick={() => setPopup(undefined)} />
+                                </Card.Header>
+                                <Card.Body>
+                                    {node}
+                                </Card.Body>
+                            </Card>
 
-                    </Col>
-                </Row>
+                        </Col>
+                    </Row>
 
-            </Container>
-        </StyledPopup>
-    </StyledPopupBg>
+                </Container>
+            </StyledPopup>
+        </StyledPopupBg>
+    </>
 }
 
 export default Context

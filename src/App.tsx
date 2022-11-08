@@ -8,7 +8,7 @@ import { Web3Provider } from '@ethersproject/providers'
 import MainPage from './components/MainPage'
 import { AuthProvider, useAuthKey } from './contexts/AuthContext'
 import { CompanyProvider } from './contexts/ProvidedCompanyContext'
-import { Popup, PopupBlur, PopupProvider, usePopup } from './contexts/PopupContext'
+import { Popup, PopupProvider } from './contexts/PopupContext'
 
 function getLibrary(provider: any): Web3Provider {
   const library = new Web3Provider(provider)
@@ -37,19 +37,17 @@ function App() {
 
     <Container>
       <Popup />
-      <PopupBlur>
-        <Row style={authKey === undefined ? { marginTop: '10%' } : {}}>
-          {authKey === undefined ? (
-            <Col md={{ offset: 4, span: 4 }}>
-              <LoginForm />
-            </Col>
-          ) : (
-            <Col>
-              <MainPage />
-            </Col>
-          )}
-        </Row>
-      </PopupBlur>
+      <Row style={authKey === undefined ? { marginTop: '10%' } : {}}>
+        {authKey === undefined ? (
+          <Col md={{ offset: 4, span: 4 }}>
+            <LoginForm />
+          </Col>
+        ) : (
+          <Col>
+            <MainPage />
+          </Col>
+        )}
+      </Row>
     </Container>
   )
 }
