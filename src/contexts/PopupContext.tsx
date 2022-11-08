@@ -20,26 +20,33 @@ const StyledPopup = styled.div`
 type PopupContextProps = {
   node: React.ReactNode | undefined
   setNode: (node: React.ReactNode | undefined) => void
+  title: string,
+  setTitle: (newTitle: string) => void
 }
-const Context = React.createContext<PopupContextProps>({ node: undefined, setNode: () => {} })
+const Context = React.createContext<PopupContextProps>({ node: undefined, setNode: () => {}, title: "", setTitle: () => {} })
 
 export const usePopup = () => {
     const context = React.useContext(Context);
     return {
         active: context.node !== undefined,
         node: context.node,
-        setPopup: context.setNode
+        title: context.title,
+        setPopup: (node: React.ReactNode, title?: string) => {
+            context.setTitle(title || "Popup");
+            context.setNode(node)
+        }
     }
 }
 
 export const PopupProvider = ({ children }: { children: React.ReactNode }) => {
   const [node, setNode] = React.useState<React.ReactNode | undefined>(undefined)
-  return <Context.Provider value={{ node, setNode }}>{children}</Context.Provider>
+  const [title, setTitle] = React.useState<string>('')
+  return <Context.Provider value={{ node, setNode, title, setTitle }}>{children}</Context.Provider>
 }
 
 
 export const Popup = () => {
-    const { node, setPopup, active } = usePopup();
+    const { node, setPopup, title, active } = usePopup();
     const style = active ? {} : {
         display: "none"
     }
@@ -51,7 +58,7 @@ export const Popup = () => {
                         <Col md={{ offset: 4, span: 4 }} style={{marginTop: "10vh"}}>
                             <Card>
                                 <Card.Header>
-                                    Popup <FaWindowClose style={{cursor: "pointer"}} onClick={() => setPopup(undefined)} />
+                                    {title} <FaWindowClose style={{cursor: "pointer"}} onClick={() => setPopup(undefined)} />
                                 </Card.Header>
                                 <Card.Body>
                                     {node}
