@@ -28,12 +28,12 @@ const LoginForm = () => {
   const [accessToken, setAccessToken] = React.useState('')
   const [permission, setPermission] = React.useState<string[] | undefined>([])
 
-  const {setAuthKey} = useAuthKey();
+  const { setAuthKey } = useAuthKey()
 
   const onContinue = () => {
-    setAuthKey(accessToken);
+    setAuthKey(accessToken)
   }
-  
+
   const EnterButton = () => {
     return (
       <Button variant="success" type="button" style={{ width: '100%' }} onClick={onContinue}>
@@ -41,8 +41,6 @@ const LoginForm = () => {
       </Button>
     )
   }
-
-
 
   React.useEffect(() => {
     if (accessToken.length === 0) return

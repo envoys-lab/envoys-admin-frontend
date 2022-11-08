@@ -1,6 +1,7 @@
 import { Col, Row } from 'react-bootstrap'
 import styled from 'styled-components'
 import AirdropCard from './components/AirdropCard'
+import CompaniesCard from './components/CompaniesCard'
 import SaleCard from './components/SaleCard'
 
 const StyledMainPage = styled(Row)`
@@ -17,15 +18,16 @@ const MainPage = () => {
       <Row>
         <Col md="4">
           <CardWrapper>
-            <AirdropCard />
+            <AirdropCard border="primary" />
           </CardWrapper>
           <CardWrapper>
-            <AirdropCard />
+            <SaleCard border="success" />
           </CardWrapper>
-          {/*
-                <CardWrapper>
-                    <SaleCard />
-                </CardWrapper> */}
+        </Col>
+        <Col md="8">
+          <CardWrapper>
+            <CompaniesCard border="muted" />
+          </CardWrapper>
         </Col>
       </Row>
     </StyledMainPage>

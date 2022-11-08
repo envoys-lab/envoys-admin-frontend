@@ -7,6 +7,7 @@ import { Web3ReactProvider } from '@web3-react/core'
 import { Web3Provider } from '@ethersproject/providers'
 import MainPage from './components/MainPage'
 import { AuthProvider, useAuthKey } from './contexts/AuthContext'
+import { CompanyProvider } from './contexts/ProvidedCompanyContext'
 
 function getLibrary(provider: any): Web3Provider {
   const library = new Web3Provider(provider)
@@ -15,15 +16,19 @@ function getLibrary(provider: any): Web3Provider {
 }
 
 function Providers() {
-  return <AuthProvider>
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <App />
-    </Web3ReactProvider>
-  </AuthProvider>
+  return (
+    <CompanyProvider>
+      <AuthProvider>
+        <Web3ReactProvider getLibrary={getLibrary}>
+          <App />
+        </Web3ReactProvider>
+      </AuthProvider>
+    </CompanyProvider>
+  )
 }
 
 function App() {
-  const {authKey} = useAuthKey();
+  const { authKey } = useAuthKey()
   return (
     <Container>
       <Row style={authKey === undefined ? { marginTop: '10%' } : {}}>

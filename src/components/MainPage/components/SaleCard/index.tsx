@@ -1,8 +1,8 @@
-import { Button, Card } from 'react-bootstrap'
+import { Button, Card, CardProps } from 'react-bootstrap'
 
-const SaleCard = () => {
+const SaleCard = ({ border }: CardProps) => {
   return (
-    <Card border="primary">
+    <Card border={border}>
       <Card.Header>Sale</Card.Header>
       <Card.Body>
         <Card.Text>
