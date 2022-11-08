@@ -16,13 +16,13 @@ type AirdropInfoStructEx = AirdropInfoStruct & {
   address: string
   owner: string
 }
-const AirdropCardDetails = ({ address }: { address: string }) => {
+const AirdropCardDetails = ({ address = "0x0" }: { address: string }) => {
   const { name, symbol, decimals, error, ready } = useTokenInfo(address)
-  const [airdropInfo, setAirdropInfo] = React.useState<AirdropInfoStructEx | undefined>(undefined)
+  const [airdropInfo, setAirdropInfo] = React.useState<AirdropInfoStructEx | undefined | null>(undefined)
   const { library, account } = useWeb3React()
-  const tokenInfo = useTokenInfo(address)
 
   const updateAirdropInfo = async (airdropFactory: EnvoysAirdropFactory) => {
+    setAirdropInfo(null)
     const airdropAddress = await airdropFactory.airdrops(address)
     if (parseInt(airdropAddress, 16) === 0) {
       setAirdropInfo(undefined)
@@ -46,7 +46,7 @@ const AirdropCardDetails = ({ address }: { address: string }) => {
   React.useEffect(() => {
     const airdropFactory = getEnvoysAirdropFactoryContract(getProviderOrSigner(library, account))
     updateAirdropInfo(airdropFactory)
-  }, [address])
+  }, [address, ready, error])
 
   if (!ready && !error) {
     return <FaSync className="spinner" />
@@ -58,6 +58,7 @@ const AirdropCardDetails = ({ address }: { address: string }) => {
 
   return (
     <ListGroup variant="flush">
+      <ListGroup.Item>Address: {address}</ListGroup.Item>
       <ListGroup.Item>Name: {name}</ListGroup.Item>
       <ListGroup.Item>Symbol: {symbol}</ListGroup.Item>
       <ListGroup.Item>Decimals: {decimals}</ListGroup.Item>
@@ -75,9 +76,9 @@ const AirdropCardDetails = ({ address }: { address: string }) => {
           <ListGroup.Item>
             End: <BlockchainTimestamp>{airdropInfo.end}</BlockchainTimestamp>
           </ListGroup.Item>
-          {tokenInfo && tokenInfo.ready && (
+          {ready && ready && (
             <ListGroup.Item>
-              Amount: {ethers.utils.formatUnits(airdropInfo.amount.toString(), tokenInfo.decimals)} {tokenInfo.symbol}
+              Amount: {ethers.utils.formatUnits(airdropInfo.amount.toString(), decimals)} {symbol}
             </ListGroup.Item>
           )}
         </>
@@ -87,6 +88,11 @@ const AirdropCardDetails = ({ address }: { address: string }) => {
         <a href={`${BaseExplorerUrlCurrent}/token/${address}`} target="_blank">
           Token
         </a>
+        {
+          airdropInfo === null && (
+            <FaSync className='spinner' />
+          )
+        }
         {airdropInfo && (
           <>
             <br></br>

@@ -21,10 +21,14 @@ const useTokenInfo = (address: string) => {
     if (!library) return
 
     const token = getErc20Contract(address, library)
+    setName('')
+    setSymbol('')
+    setDecimlas(18);
+
     token.name().then(setName).catch(onError)
     token.symbol().then(setSymbol).catch(onError)
     token.decimals().then(setDecimlas).catch(onError)
-  }, [library])
+  }, [library, address])
 
   React.useEffect(() => {
     if (name.length > 0 && symbol.length > 0 && decimals > 0 && !ready) {
