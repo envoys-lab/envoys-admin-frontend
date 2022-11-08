@@ -8,7 +8,7 @@ export const BaseExplorerUrl = {
   [ChainId.Testnet]: 'https://testnet.bscscan.com',
 }
 
-const envChainId = parseInt(process.env.CHAIN_ID as string, 10)
+const envChainId = parseInt(process.env.REACT_APP_CHAIN_ID as string, 10)
 
 export const CURRENT_CHAIN_ID: ChainId = isNaN(envChainId) ? ChainId.Testnet : ChainId.Testnet
 

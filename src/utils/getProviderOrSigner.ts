@@ -2,7 +2,7 @@ import { JsonRpcSigner, Web3Provider, JsonRpcProvider } from '@ethersproject/pro
 
 export function getProivider(library?: Web3Provider): Web3Provider | JsonRpcProvider {
   if (!library) {
-    return new JsonRpcProvider(process.env.RPC_URL as string)
+    return new JsonRpcProvider(process.env.REACT_APP_RPC_URL as string)
   }
   return library
 }
