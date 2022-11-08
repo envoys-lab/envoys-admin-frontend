@@ -1,9 +1,12 @@
 import { Button, Col, Form, FormText, InputGroup, Row } from 'react-bootstrap'
+import { usePopup } from '../../../../contexts/PopupContext'
 import { useProvidedCompany } from '../../../../contexts/ProvidedCompanyContext'
 
 const CompanyEditor = () => {
   const { company, setCompany } = useProvidedCompany()
   const back = () => setCompany(undefined)
+  const { setPopup } = usePopup()
+
 
   if (!company) {
     return <div>Error! Company not loaded</div>
@@ -29,6 +32,13 @@ const CompanyEditor = () => {
       </Col>
     )
   }
+
+
+  const onChange = () => {
+    setPopup(<span>Hello world)</span>);
+    
+  }
+
   return (
     <div>
       <div>
@@ -54,7 +64,7 @@ const CompanyEditor = () => {
         <Row>
           <Col>
             <Form.Group>
-              <Button variant="primary" style={{ marginTop: '10px', width: '100%' }}>
+              <Button variant="primary" style={{ marginTop: '10px', width: '100%' }} onClick={onChange}>
                 Change
               </Button>
             </Form.Group>
