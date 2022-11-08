@@ -21,6 +21,8 @@ const DisconnectButton = () => {
   )
 }
 
+const defaultAccessKey = process.env.REACT_APP_ACCESS_TOKEN || "";
+
 const LoginForm = () => {
   const { account, library } = useWeb3React()
   const [showWalletConnect, setShowWalletConnect] = React.useState(false)
@@ -41,6 +43,9 @@ const LoginForm = () => {
       </Button>
     )
   }
+  React.useEffect(() => {
+    setAccessToken(defaultAccessKey);
+  }, []);
 
   React.useEffect(() => {
     if (accessToken.length === 0) return
@@ -107,7 +112,7 @@ const LoginForm = () => {
         <Form.Label>Access Token</Form.Label>
 
         <InputGroup>
-          <Form.Control type="password" placeholder="Enter token" onInput={onInputAccessToken} />
+          <Form.Control type="password" value={accessToken} placeholder="Enter token" onInput={onInputAccessToken} />
         </InputGroup>
 
         <Form.Text className="text-muted">
