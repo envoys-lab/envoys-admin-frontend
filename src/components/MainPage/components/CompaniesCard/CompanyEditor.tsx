@@ -4,6 +4,7 @@ import { useAuthKey } from '../../../../contexts/AuthContext';
 import { usePopup } from '../../../../contexts/PopupContext'
 import { useProvidedCompany } from '../../../../contexts/ProvidedCompanyContext'
 import Api from '../../../../utils/api/Api';
+import RoadmapEditor from './RoadmapEditor';
 
 function extractValue<T = string>(object: Object, path: string): T {
   const p = path.split(".");
@@ -139,6 +140,9 @@ const CompanyEditor = () => {
           <Property name="details.company.foundedDate" />
           <Property name="details.company.registredCountry" />
           <Property name="details.company.registredName" />
+        </Row>
+        <Row>
+          <RoadmapEditor />
         </Row>
 
         <Row>

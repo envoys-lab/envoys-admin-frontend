@@ -9,6 +9,8 @@ const StyledPopupBg = styled.div`
     top: 0;
     min-width: 100vw;
     min-height: 100vh;
+    height: 100%;
+    width: 100%;
     z-index: 3;
     background: rgba(0,0,0,0.4)
 `;
