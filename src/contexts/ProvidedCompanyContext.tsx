@@ -1,8 +1,8 @@
 import React from 'react'
 import Company from '../utils/api/types/Company'
 type ProvidedCompanyContextProps = {
-  company: Company | undefined
-  setCompany: (key: Company | undefined) => void
+  company: Company | undefined | null
+  setCompany: (key: Company | undefined | null) => void
 }
 const Context = React.createContext<ProvidedCompanyContextProps>({
   company: undefined,
@@ -14,7 +14,7 @@ export const useProvidedCompany = () => {
 }
 
 export const CompanyProvider = ({ children }: { children: React.ReactNode }) => {
-  const [company, setCompany] = React.useState<Company | undefined>(undefined)
+  const [company, setCompany] = React.useState<Company | undefined | null>(undefined)
   return <Context.Provider value={{ company, setCompany }}>{children}</Context.Provider>
 }
 
