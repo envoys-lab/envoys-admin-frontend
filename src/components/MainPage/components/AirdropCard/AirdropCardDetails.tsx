@@ -45,7 +45,7 @@ const AirdropCardDetails = ({ address = "0x0" }: { address: string }) => {
   React.useEffect(() => {
     const airdropFactory = getEnvoysAirdropFactoryContract(getProviderOrSigner(library, account))
     updateAirdropInfo(airdropFactory)
-  }, [address, ready, error])
+  }, [address, ready, error, library, account, updateAirdropInfo])
 
   if (!ready && !error) {
     return <FaSync className="spinner" />

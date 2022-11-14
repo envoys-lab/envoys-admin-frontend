@@ -1,10 +1,6 @@
-import { useWeb3React } from '@web3-react/core'
 import React from 'react'
-import { Button, Card, Form, FormText, InputGroup } from 'react-bootstrap'
+import { Card, Form } from 'react-bootstrap'
 import useFeaturedToken from '../../../../hooks/useFeaturedToken'
-import { getErc20Contract } from '../../../../utils/contractHelpers'
-import { getProviderOrSigner } from '../../../../utils/getProviderOrSigner'
-import ERC20Input from '../../../ERC20Input'
 import CardProps from '../CardProps'
 import AirdropCardDetails from './AirdropCardDetails'
 
@@ -30,7 +26,7 @@ const AirdropCard = ({ border }: CardProps) => {
               onChange={(e) => onChangeAddress(e.target.value)}
             />
 
-            {featuredToken && featuredToken != address && (
+            {featuredToken && featuredToken !== address && (
               <a href="#" onClick={() => onChangeAddress(featuredToken)}>
                 Use company token
               </a>

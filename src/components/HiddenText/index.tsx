@@ -1,5 +1,5 @@
 import React from "react";
-import { FaEye, FaEyeDropper, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import styled from "styled-components";
 
 const StyledHiddenText = styled.span`

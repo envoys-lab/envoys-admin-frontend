@@ -1,4 +1,4 @@
-import { BigNumber, BigNumberish } from 'ethers'
+import { BigNumberish } from 'ethers'
 import { FaSync } from 'react-icons/fa'
 import { PromiseOrValue } from '../../abi/types/common'
 import useCurrentBlock from '../../hooks/useCurrentBlock'

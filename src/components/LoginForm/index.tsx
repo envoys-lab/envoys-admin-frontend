@@ -3,7 +3,6 @@ import React from 'react'
 import { Button, Form, InputGroup } from 'react-bootstrap'
 import { FaSync } from 'react-icons/fa'
 import { useAuthKey } from '../../contexts/AuthContext'
-import Api from '../../utils/api/Api'
 import { getEnvoysAirdropFactoryContract, getEnvoysSaleFactoryContract } from '../../utils/contractHelpers'
 import { getProviderOrSigner } from '../../utils/getProviderOrSigner'
 import ConnectWalletButton from '../ConnectWalletButton'
@@ -59,7 +58,7 @@ const LoginForm = () => {
     }, 1000)
 
     return () => clearTimeout(t)
-  }, [accessToken])
+  }, [accessToken, showWalletConnect])
 
   React.useEffect(() => {
     const fetchPermission = async () => {
@@ -90,7 +89,7 @@ const LoginForm = () => {
       resp.saleFactory && permission.push('sale')
       setPermission(permission)
     })
-  }, [account])
+  }, [account, library])
 
   const onInputAccessToken = (e: any) => {
     const accessToken = e.target.value as string

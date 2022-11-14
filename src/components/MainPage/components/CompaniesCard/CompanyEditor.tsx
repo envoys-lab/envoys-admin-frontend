@@ -1,5 +1,5 @@
-import React, { FormEvent, FormEventHandler } from 'react';
-import { Button, Col, Form, FormText, InputGroup, Row } from 'react-bootstrap'
+import React from 'react';
+import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap'
 import { useAuthKey } from '../../../../contexts/AuthContext';
 import { usePopup } from '../../../../contexts/PopupContext'
 import { useProvidedCompany } from '../../../../contexts/ProvidedCompanyContext'
@@ -107,7 +107,7 @@ const CompanyEditor = () => {
       onInput && onInput(defaultValue);
       onChange && onChange(defaultValue)
 
-    }, []);
+    }, [onInput, onChange, defaultValue]);
     return (
       <Col lg="6">
         <Form.Group>
