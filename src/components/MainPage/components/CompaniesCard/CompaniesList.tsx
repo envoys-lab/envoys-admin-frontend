@@ -23,7 +23,7 @@ const CompaniesList = () => {
       .then((companies) => {
         setCompanies(companies.items)
       })
-  }, [])
+  }, [authKey])
   return (
     <ul>
       {companies.map((company) => {
