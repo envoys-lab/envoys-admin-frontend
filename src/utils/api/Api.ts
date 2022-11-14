@@ -53,7 +53,7 @@ class Api {
       baseURL: this.endpoint,
       timeout: 5000,
       headers: {
-        authorization: `Token ${accessToken}`,
+        authorization: `Token ${accessToken}`
       },
     })
   }
@@ -103,6 +103,8 @@ class Api {
         throw new Error((await resp).statusText)
       }
     } catch (e: any) {
+      console.log("ERROR!");
+      console.log(e.response);
       if (e.response && e.response.data && e.response.data.message) {
         console.log('REQUEST')
         console.log(e.request._header)

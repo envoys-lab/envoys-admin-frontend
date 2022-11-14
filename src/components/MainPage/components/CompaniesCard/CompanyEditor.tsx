@@ -4,6 +4,7 @@ import { useAuthKey } from '../../../../contexts/AuthContext';
 import { usePopup } from '../../../../contexts/PopupContext'
 import { useProvidedCompany } from '../../../../contexts/ProvidedCompanyContext'
 import Api from '../../../../utils/api/Api';
+import { RoadmapModel } from '../../../../utils/api/types/Company';
 import RoadmapEditor from './RoadmapEditor';
 
 function extractValue<T = string>(object: Object, path: string): T {
@@ -12,7 +13,7 @@ function extractValue<T = string>(object: Object, path: string): T {
 
   for (let i = 0; i < p.length; i++) {
     tmp = tmp[p[i]];
-    if(tmp === undefined) return tmp;
+    if (tmp === undefined) return tmp;
   }
 
   return tmp;
@@ -24,8 +25,8 @@ function put(object: any, key: string, value: any) {
 
   for (let i = 0; i < path.length; i++) {
     const keyItem = path[i];
-    if(tmp[keyItem] === undefined) {
-      if(path.length - 1 == i) {
+    if (tmp[keyItem] === undefined) {
+      if (path.length - 1 == i) {
         tmp[keyItem] = value;
       } else {
         tmp[keyItem] = {};
@@ -36,28 +37,77 @@ function put(object: any, key: string, value: any) {
 
 }
 
-function buildObject(src: {id: string, value: any, type: string}[]) {
+function buildObject(src: { id: string, value: any, type: string }[]) {
   let buff: any = Object({});
 
 
   for (let i = 0; i < src.length; i++) {
-    console.log("type", src[i].type);
     const path = src[i].id;
-    const value = src[i].value;
+    let value: any;
+
+    if (src[i].type == "string") {
+      value = src[i].value;
+    } else if (src[i].type == "boolean") {
+      value = Boolean(
+        src[i].value == "true"
+          ? true
+          : src[i].value == "false"
+            ? false
+            : parseInt(src[i].value))
+    }
     put(buff, path, value);
   }
+  console.log(buff);
   return buff;
+}
+
+
+type PropertyProps = {
+  name: string
+  description?: string
+  readOnly?: boolean
+  type?: string
+  onInput?: (text: string) => void
+  onChange?: (text: string) => void
 }
 
 const CompanyEditor = () => {
   const { company, setCompany } = useProvidedCompany()
   const back = () => setCompany(undefined)
   const { setPopup } = usePopup()
-  const {authKey} = useAuthKey();
+  const { authKey } = useAuthKey();
+  const [roadmap, setRoadmap] = React.useState<RoadmapModel[]>(company ? company.roadmap : []);
 
 
+  const LogoProperty = () => {
+    const [logoUrl, setLogoUrl] = React.useState<string>('');
 
-  const Property = ({ name, description, readOnly }: { name: string; description?: string; readOnly?: boolean }) => {
+    return <>
+       <Property name="logoUrl" onChange={setLogoUrl} />
+        <Col lg="6">
+          <img alt="logo" src={logoUrl} width="100" height="100" />
+          <img alt="logo" src={logoUrl} width="80" height="80" />
+          <img alt="logo" src={logoUrl} width="60" height="60" />
+          <img alt="logo" src={logoUrl} width="30" height="30" />
+        </Col>
+    </>
+  }
+
+  const Property = ({
+    name,
+    description,
+    readOnly,
+    type = "string",
+    onInput,
+    onChange
+  }: PropertyProps) => {
+    const defaultValue = company ? extractValue<string>(Object(company), name) : ""
+
+    React.useEffect(() => {
+      onInput && onInput(defaultValue);
+      onChange && onChange(defaultValue)
+
+    }, []);
     return (
       <Col lg="6">
         <Form.Group>
@@ -69,7 +119,10 @@ const CompanyEditor = () => {
               readOnly={readOnly}
               type="text"
               placeholder={`Enter ${name}`}
-              defaultValue={company ? extractValue<string>(Object(company), name) : ""}
+              defaultValue={defaultValue}
+              data-type={type}
+              onInput={(e: any) => onInput && onInput(e.target.value)}
+              onChange={(e: any) => onChange && onChange(e.target.value)}
             />
           </InputGroup>
 
@@ -82,12 +135,12 @@ const CompanyEditor = () => {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if(!authKey) {
+    if (!authKey) {
       setPopup(<span>Your access key not provided</span>, "Error");
       return;
     }
 
-    if(!company) {
+    if (!company) {
       setPopup(<span>Your company not provided</span>, "Error");
       return;
     }
@@ -95,23 +148,28 @@ const CompanyEditor = () => {
     console.log(event.currentTarget.elements);
 
     const elements = Object.keys(event.currentTarget.elements)
-                      .map(key => parseInt(key))
-                      .filter(key => !isNaN(key))
-                      .map(key => key.toString())
-                      .map(key => Object(event.currentTarget.elements)[key as string])
-                      .map(item => {return {
-                        value: item.value,
-                        id: item.id,
-                        type: item.dataset
-                      }})
+      .map(key => parseInt(key))
+      .filter(key => !isNaN(key))
+      .map(key => key.toString())
+      .map(key => Object(event.currentTarget.elements)[key as string])
+      .map(item => {
+        return {
+          value: item.value,
+          id: item.id,
+          type: item.dataset.type || "string"
+        }
+      })
 
     console.log(elements);
 
-    const object = buildObject(elements);
-    
-    
-    
-  
+    const object = {
+      ...buildObject(elements),
+      roadmap
+    };
+
+
+
+
     api.updateCompany(company._id, object);
 
   }
@@ -128,12 +186,13 @@ const CompanyEditor = () => {
       </div>
 
       <Form onSubmit={submitHandler}>
+
         <Row>
           <Property name="name" />
           <Property name="token" />
-          <Property name="active" data-type="boolean" />
+          <Property name="active" type="boolean" />
           <Property name="description" />
-          <Property name="logoUrl" />
+          <LogoProperty />
           <Property name="videoUrl" />
           <Property name="homePageUrl" />
           <Property name="details.additional.platform" />
@@ -142,7 +201,7 @@ const CompanyEditor = () => {
           <Property name="details.company.registredName" />
         </Row>
         <Row>
-          <RoadmapEditor />
+          <RoadmapEditor defaultRoadmap={roadmap} onChange={setRoadmap} />
         </Row>
 
         <Row>
