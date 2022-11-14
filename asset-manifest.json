@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/envoys-admin-frontend/static/css/main.64a5e426.css",
-    "main.js": "/envoys-admin-frontend/static/js/main.ef8f398f.js",
+    "main.js": "/envoys-admin-frontend/static/js/main.a18b2960.js",
     "index.html": "/envoys-admin-frontend/index.html",
     "main.64a5e426.css.map": "/envoys-admin-frontend/static/css/main.64a5e426.css.map",
-    "main.ef8f398f.js.map": "/envoys-admin-frontend/static/js/main.ef8f398f.js.map"
+    "main.a18b2960.js.map": "/envoys-admin-frontend/static/js/main.a18b2960.js.map"
   },
   "entrypoints": [
     "static/css/main.64a5e426.css",
-    "static/js/main.ef8f398f.js"
+    "static/js/main.a18b2960.js"
   ]
 }
