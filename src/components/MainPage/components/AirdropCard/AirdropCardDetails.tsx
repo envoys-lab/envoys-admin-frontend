@@ -5,7 +5,6 @@ import { Form, ListGroup } from 'react-bootstrap'
 import { FaSync } from 'react-icons/fa'
 import { EnvoysAirdropFactory } from '../../../../abi/types'
 import { AirdropInfoStruct } from '../../../../abi/types/EnvoysAirdrop'
-import useCurrentBlock from '../../../../hooks/useCurrentBlock'
 import useTokenInfo from '../../../../hooks/useTokenInfo'
 import { getEnvoysAirdropContract, getEnvoysAirdropFactoryContract } from '../../../../utils/contractHelpers'
 import { BaseExplorerUrlCurrent } from '../../../../utils/currentChainId'
@@ -66,7 +65,7 @@ const AirdropCardDetails = ({ address = "0x0" }: { address: string }) => {
         <>
           <ListGroup.Item>
             Owner:{' '}
-            <a href={`${BaseExplorerUrlCurrent}/address/${airdropInfo.owner}`} target="_blank">
+            <a rel="noopener" href={`${BaseExplorerUrlCurrent}/address/${airdropInfo.owner}`} target="_blank">
               {airdropInfo.owner}
             </a>
           </ListGroup.Item>
@@ -85,7 +84,7 @@ const AirdropCardDetails = ({ address = "0x0" }: { address: string }) => {
       )}
 
       <ListGroup.Item>
-        <a href={`${BaseExplorerUrlCurrent}/token/${address}`} target="_blank">
+        <a rel="noopener" href={`${BaseExplorerUrlCurrent}/token/${address}`} target="_blank">
           Token
         </a>
         {
@@ -96,7 +95,7 @@ const AirdropCardDetails = ({ address = "0x0" }: { address: string }) => {
         {airdropInfo && (
           <>
             <br></br>
-            <a href={`${BaseExplorerUrlCurrent}/token/${airdropInfo.address}`} target="_blank">
+            <a rel="noopener" href={`${BaseExplorerUrlCurrent}/token/${airdropInfo.address}`} target="_blank">
               Airdrop
             </a>
           </>
