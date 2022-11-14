@@ -94,7 +94,7 @@ class Api {
   private async _resp(resp: Promise<AxiosResponse>) {
     try {
       const data = (await resp).data
-      if ((await resp).status == 200) {
+      if ((await resp).status === 200) {
         if (data.message) {
           console.log(`[API_MESSAGE] ${data.message}`)
         }

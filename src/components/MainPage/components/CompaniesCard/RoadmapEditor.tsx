@@ -16,7 +16,7 @@ const RoadmapEditor = ({defaultRoadmap = [], onChange}: RoadmapEditorProps) => {
     const { setPopup } = usePopup();
     const updateNewRoadmapItem = (event: any) => {
         const value = event.target.value
-        const key = event.target.type == "text" ? "title" : "description"
+        const key = event.target.type === "text" ? "title" : "description"
 
         setNewRoadmapItem((prev: RoadmapModel) => {
             return {
@@ -33,8 +33,8 @@ const RoadmapEditor = ({defaultRoadmap = [], onChange}: RoadmapEditorProps) => {
     const addRoadmapItem = () => {
         setError(undefined)
         if(
-            newRoadmapItem.title.trim().length == 0 || 
-            newRoadmapItem.description.trim().length == 0
+            newRoadmapItem.title.trim().length === 0 || 
+            newRoadmapItem.description.trim().length === 0
         ) {
             return setError("Title and description must be used");
         }

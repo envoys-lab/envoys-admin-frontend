@@ -17,8 +17,8 @@ const HiddenText = ({
     viewEndCount?: number
 }) => {
     const viewStart = children.slice(0, viewStartCount)
-    const between = children.slice(viewStartCount, viewEndCount == 0 ? undefined : -viewEndCount);
-    const viewEnd = viewEndCount == 0 ? "" : children.slice(-viewEndCount)
+    const between = children.slice(viewStartCount, viewEndCount === 0 ? undefined : -viewEndCount);
+    const viewEnd = viewEndCount === 0 ? "" : children.slice(-viewEndCount)
     const [isHidden, setIsHidden] = React.useState(true);
 
     return <StyledHiddenText onClick={() => setIsHidden(!isHidden)}>

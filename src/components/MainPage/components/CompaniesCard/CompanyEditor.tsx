@@ -26,7 +26,7 @@ function put(object: any, key: string, value: any) {
   for (let i = 0; i < path.length; i++) {
     const keyItem = path[i];
     if (tmp[keyItem] === undefined) {
-      if (path.length - 1 == i) {
+      if (path.length - 1 === i) {
         tmp[keyItem] = value;
       } else {
         tmp[keyItem] = {};
@@ -45,13 +45,13 @@ function buildObject(src: { id: string, value: any, type: string }[]) {
     const path = src[i].id;
     let value: any;
 
-    if (src[i].type == "string") {
+    if (src[i].type === "string") {
       value = src[i].value;
-    } else if (src[i].type == "boolean") {
+    } else if (src[i].type === "boolean") {
       value = Boolean(
-        src[i].value == "true"
+        src[i].value === "true"
           ? true
-          : src[i].value == "false"
+          : src[i].value === "false"
             ? false
             : parseInt(src[i].value))
     }
