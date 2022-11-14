@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/envoys-admin-frontend/static/css/main.64a5e426.css",
+    "main.js": "/envoys-admin-frontend/static/js/main.2607db51.js",
+    "static/js/787.929fcc51.chunk.js": "/envoys-admin-frontend/static/js/787.929fcc51.chunk.js",
+    "index.html": "/envoys-admin-frontend/index.html",
+    "main.64a5e426.css.map": "/envoys-admin-frontend/static/css/main.64a5e426.css.map",
+    "main.2607db51.js.map": "/envoys-admin-frontend/static/js/main.2607db51.js.map",
+    "787.929fcc51.chunk.js.map": "/envoys-admin-frontend/static/js/787.929fcc51.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.64a5e426.css",
+    "static/js/main.2607db51.js"
+  ]
+}
