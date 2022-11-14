@@ -23,10 +23,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Install dependencies
-      run: npm install
+      run: npm install --frozen-lockfile
 
     - name: Build
       run: npm run build
+      env:
+        CI: false
 
     - name: Deploy
       run: |
