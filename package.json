@@ -39,7 +39,9 @@
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
     "format:check:staged": "pretty-quick --staged --check",
     "format:write": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -58,5 +60,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
   }
 }
