@@ -45,10 +45,19 @@ const InterviewEditor = ({questions, setQuestions}: InterviewEditorProps) => {
         setNewQuestion({question:"", answear: ""})
     }
 
+    const removeItem = (index: number) => {
+        setQuestions(prev => {
+            return [
+                ...prev.slice(0, index),
+                ...prev.slice(index+1)
+            ];
+        })
+    }
+
     return <>
         <h3>Questions</h3>
         {questions.map((quest, index) => {
-            return <Form.Group key={index}><Alert variant="success" title={quest.question}>{quest.answear}</Alert></Form.Group>
+            return <Form.Group key={index}><Alert onClose={() => removeItem(index)} variant="success" title={quest.question}>{quest.answear}</Alert></Form.Group>
         })}
         <Form.Group>
             <Form.Label>Question</Form.Label>
@@ -121,7 +130,6 @@ const MembersEditor = ({ onChange, defaultMembers = [] }: MembersEditorProps) =>
                 questions
             }
         }
-        console.log(item);
 
         setMembers(prev => {
             return [
@@ -133,20 +141,32 @@ const MembersEditor = ({ onChange, defaultMembers = [] }: MembersEditorProps) =>
         setNewMemberItem(baseNewMember);
     }
 
+    const removeMember = (index: number) => {
+        setMembers(prev => {
+            return [
+                ...prev.slice(0, index),
+                ...prev.slice(index + 1)
+            ]
+        })
+    }
+
     return <>
         <h2>Members</h2>
 
         {members.map((member, index) => {
             return <Form.Group key={index}>
-                <Alert title={member.name}>
-                    <img src={member.avatarUrl} alt="avatar" style={{padding: "5px"}} />
+                <Alert title={member.name} onClose={() => removeMember(index)}>
+                    <img width="100" src={member.avatarUrl} alt="avatar" style={{padding: "5px"}} />
                     {member.position}
 
-                    {member.interview.questions.map((quest, index) => {
-                        return <p key={index}>
-                            {index + 1}. {quest.question}<br></br>{quest.answear}
-                        </p>
-                    })}
+                    <div style={{maxHeight: "140px", overflow: "scroll"}}>
+                        <h5>Interview</h5>
+                        {member.interview.questions.map((quest, index) => {
+                            return <p key={index}>
+                                {index + 1}. {quest.question}<br></br>{quest.answear}
+                            </p>
+                        })}
+                    </div>
 
                 </Alert>
             </Form.Group>
