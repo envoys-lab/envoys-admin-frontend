@@ -7,7 +7,7 @@ import EnvoysSaleAbi from '../abi/EnvoysSale.json'
 import EnvoysAirdropAbi from '../abi/EnvoysAirdrop.json'
 import ERC20Abi from '../abi/ERC20.json'
 
-import { EnvoysAirdrop, EnvoysAirdropFactory, EnvoysSale, ERC20 } from '../abi/types'
+import { EnvoysAirdrop, EnvoysAirdropFactory, EnvoysSale, EnvoysSaleFactory, ERC20 } from '../abi/types'
 import { getAddress } from './addressHelper'
 
 const getContract = (abi: any, address: string, signer?: Signer | Provider) => {
@@ -20,7 +20,7 @@ export const getEnvoysAirdropFactoryContract = (signer?: Signer | Provider) => {
 }
 
 export const getEnvoysSaleFactoryContract = (signer?: Signer | Provider) => {
-  return getContract(EnvoysSaleFactoryAbi, getAddress('EnvoysSaleFactory'), signer) as EnvoysAirdropFactory
+  return getContract(EnvoysSaleFactoryAbi, getAddress('EnvoysSaleFactory'), signer) as EnvoysSaleFactory
 }
 
 export const getErc20Contract = (address: string, signer?: Signer | Provider) => {
