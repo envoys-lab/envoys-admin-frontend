@@ -46,7 +46,7 @@ class Api {
   public readonly endpoint: string
   private readonly net: AxiosInstance
 
-  constructor(accessToken: string, url?: string) {
+  constructor(accessToken: string, url?: string, private readonly _onError?: (e: any) => void) {
     this.endpoint = url ? url : (process.env.REACT_APP_API_URL as string)
     this.net = axios.create({
       baseURL: this.endpoint,
@@ -102,6 +102,7 @@ class Api {
         throw new Error((await resp).statusText)
       }
     } catch (e: any) {
+      this._onError && this._onError(e);
       console.log("ERROR!");
       console.log(e.response);
       if (e.response && e.response.data && e.response.data.message) {
