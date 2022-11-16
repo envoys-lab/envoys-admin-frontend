@@ -1,4 +1,3 @@
-import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import LoginForm from './components/LoginForm'
 import './App.css'
@@ -9,6 +8,7 @@ import MainPage from './components/MainPage'
 import { AuthProvider, useAuthKey } from './contexts/AuthContext'
 import { CompanyProvider } from './contexts/ProvidedCompanyContext'
 import { Popup, PopupProvider } from './contexts/PopupContext'
+import useIsAuthed from './hooks/useIsAuthed'
 
 function getLibrary(provider: any): Web3Provider {
   const library = new Web3Provider(provider)
@@ -31,14 +31,14 @@ function Providers() {
 }
 
 function App() {
-  const { authKey } = useAuthKey()
+  const isAuthed = useIsAuthed()
 
   return (
 
     <Container>
       <Popup />
-      <Row style={authKey === undefined ? { marginTop: '10%' } : {}}>
-        {authKey === undefined ? (
+      <Row style={!isAuthed ? { marginTop: '10%' } : {}}>
+        {!isAuthed ? (
           <Col md={{ offset: 4, span: 4 }}>
             <LoginForm />
           </Col>

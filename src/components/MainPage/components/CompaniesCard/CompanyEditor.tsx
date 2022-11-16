@@ -4,8 +4,9 @@ import { useAuthKey } from '../../../../contexts/AuthContext';
 import { usePopup } from '../../../../contexts/PopupContext'
 import { useProvidedCompany } from '../../../../contexts/ProvidedCompanyContext'
 import Api from '../../../../utils/api/Api';
-import { RoadmapModel } from '../../../../utils/api/types/Company';
+import { RoadmapModel, SocialModel } from '../../../../utils/api/types/Company';
 import RoadmapEditor from './RoadmapEditor';
+import SocialEditor from './SocialEditor';
 
 function extractValue<T = string>(object: Object, path: string): T {
   const p = path.split(".");
@@ -77,6 +78,7 @@ const CompanyEditor = () => {
   const { setPopup } = usePopup()
   const { authKey } = useAuthKey();
   const [roadmap, setRoadmap] = React.useState<RoadmapModel[]>(company ? company.roadmap : []);
+  const [social, setSocial] = React.useState<SocialModel>(company ? company.social : {feed: [], links: []});
 
 
   const LogoProperty = () => {
@@ -164,14 +166,11 @@ const CompanyEditor = () => {
 
     const object = {
       ...buildObject(elements),
-      roadmap
+      roadmap,
+      social
     };
 
-
-
-
     api.updateCompany(company._id, object);
-
   }
 
   return (
@@ -202,6 +201,10 @@ const CompanyEditor = () => {
         </Row>
         <Row>
           <RoadmapEditor defaultRoadmap={roadmap} onChange={setRoadmap} />
+        </Row>
+
+        <Row>
+          <SocialEditor defaultSocial={social} onChange={setSocial} />
         </Row>
 
         <Row>

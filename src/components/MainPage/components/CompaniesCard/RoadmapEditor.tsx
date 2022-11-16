@@ -13,7 +13,6 @@ const RoadmapEditor = ({defaultRoadmap = [], onChange}: RoadmapEditorProps) => {
     const [roadmap, setRoadmap] = React.useState<RoadmapModel[]>(defaultRoadmap);
     const [newRoadmapItem, setNewRoadmapItem] = React.useState<RoadmapModel>({title:'', description: ''});
     const [error, setError] = React.useState<string | undefined>();
-    const { setPopup } = usePopup();
     const updateNewRoadmapItem = (event: any) => {
         const value = event.target.value
         const key = event.target.type === "text" ? "title" : "description"

@@ -48,7 +48,6 @@ class Api {
 
   constructor(accessToken: string, url?: string) {
     this.endpoint = url ? url : (process.env.REACT_APP_API_URL as string)
-    console.log(`Api inited in endpoint ${this.endpoint}`)
     this.net = axios.create({
       baseURL: this.endpoint,
       timeout: 5000,

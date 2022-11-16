@@ -29,7 +29,7 @@ const LoginForm = () => {
   const [accessToken, setAccessToken] = React.useState('')
   const [permission, setPermission] = React.useState<string[] | undefined>([])
 
-  const { setAuthKey } = useAuthKey()
+  const { setAuthKey, authKey } = useAuthKey()
 
   const onContinue = () => {
     setAuthKey(accessToken)
@@ -42,9 +42,14 @@ const LoginForm = () => {
       </Button>
     )
   }
-  React.useEffect(() => {
-    setAccessToken(defaultAccessKey);
-  }, []);
+
+  // React.useEffect(() => {
+  //   setAccessToken(authKey || defaultAccessKey);
+  // }, [authKey]);
+
+  // React.useEffect(() => {
+  //   setAuthKey(accessToken);
+  // }, [accessToken]);
 
   React.useEffect(() => {
     if (accessToken.length === 0) return
@@ -94,6 +99,7 @@ const LoginForm = () => {
   const onInputAccessToken = (e: any) => {
     const accessToken = e.target.value as string
     setAccessToken(accessToken)
+    setAuthKey(undefined)
     setFetchingAccessToken(true)
   }
   const PermssionComponent = () => {
