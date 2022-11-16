@@ -3,8 +3,10 @@ import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap'
 import { useAuthKey } from '../../../../contexts/AuthContext';
 import { usePopup } from '../../../../contexts/PopupContext'
 import { useProvidedCompany } from '../../../../contexts/ProvidedCompanyContext'
+import useApi from '../../../../hooks/useApi';
 import Api from '../../../../utils/api/Api';
-import { RoadmapModel, SocialModel } from '../../../../utils/api/types/Company';
+import { MemberModel, RoadmapModel, SocialModel } from '../../../../utils/api/types/Company';
+import MembersEditor from './MembersEditor';
 import RoadmapEditor from './RoadmapEditor';
 import SocialEditor from './SocialEditor';
 
@@ -77,8 +79,10 @@ const CompanyEditor = () => {
   const back = () => setCompany(undefined)
   const { setPopup } = usePopup()
   const { authKey } = useAuthKey();
+  const api = useApi();
   const [roadmap, setRoadmap] = React.useState<RoadmapModel[]>(company ? company.roadmap : []);
   const [social, setSocial] = React.useState<SocialModel>(company ? company.social : {feed: [], links: []});
+  const [members, setMembers] = React.useState<MemberModel[]>(company ? company.members : []);
 
 
   const LogoProperty = () => {
@@ -137,7 +141,7 @@ const CompanyEditor = () => {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!authKey) {
+    if (!authKey || !api) {
       setPopup(<span>Your access key not provided</span>, "Error");
       return;
     }
@@ -146,7 +150,6 @@ const CompanyEditor = () => {
       setPopup(<span>Your company not provided</span>, "Error");
       return;
     }
-    const api = new Api(authKey);
     console.log(event.currentTarget.elements);
 
     const elements = Object.keys(event.currentTarget.elements)
@@ -167,8 +170,11 @@ const CompanyEditor = () => {
     const object = {
       ...buildObject(elements),
       roadmap,
-      social
+      social,
+      members
     };
+
+    console.log("object", object);
 
     api.updateCompany(company._id, object);
   }
@@ -205,6 +211,10 @@ const CompanyEditor = () => {
 
         <Row>
           <SocialEditor defaultSocial={social} onChange={setSocial} />
+        </Row>
+
+        <Row>
+          <MembersEditor defaultMembers={members} onChange={setMembers} />
         </Row>
 
         <Row>
