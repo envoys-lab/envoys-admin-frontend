@@ -4,7 +4,7 @@ import { FaWindowClose } from 'react-icons/fa';
 import styled from 'styled-components'
 
 const StyledPopupBg = styled.div`
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     min-width: 100vw;
