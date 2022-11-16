@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ElementType } from 'react';
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap'
 import { useAuthKey } from '../../../../contexts/AuthContext';
 import { usePopup } from '../../../../contexts/PopupContext'
@@ -70,6 +70,7 @@ type PropertyProps = {
   description?: string
   readOnly?: boolean
   type?: string
+  as?: ElementType<any>
   onInput?: (text: string) => void
   onChange?: (text: string) => void
 }
@@ -104,6 +105,7 @@ const CompanyEditor = () => {
     description,
     readOnly,
     type = "string",
+    as = "input",
     onInput,
     onChange
   }: PropertyProps) => {
@@ -124,6 +126,7 @@ const CompanyEditor = () => {
               id={name}
               readOnly={readOnly}
               type="text"
+              as={as}
               placeholder={`Enter ${name}`}
               defaultValue={defaultValue}
               data-type={type}
@@ -196,7 +199,7 @@ const CompanyEditor = () => {
           <Property name="name" />
           <Property name="token" />
           <Property name="active" type="boolean" />
-          <Property name="description" />
+          <Property name="description" as='textarea' />
           <LogoProperty />
           <Property name="videoUrl" />
           <Property name="homePageUrl" />
@@ -205,14 +208,17 @@ const CompanyEditor = () => {
           <Property name="details.company.registredCountry" />
           <Property name="details.company.registredName" />
         </Row>
+        <hr />
+
         <Row>
           <RoadmapEditor defaultRoadmap={roadmap} onChange={setRoadmap} />
         </Row>
+        <hr />
 
         <Row>
           <SocialEditor defaultSocial={social} onChange={setSocial} />
         </Row>
-
+        <hr />
         <Row>
           <MembersEditor defaultMembers={members} onChange={setMembers} />
         </Row>
