@@ -1,6 +1,5 @@
 {
   "name": "envoys-admin-frontend",
-  "homepage": "https://envoys-lab.github.io/envoys-admin-frontend/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
