@@ -30,7 +30,12 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <div id="error">
-      <link type="script" src="%PUBLIC_URL%/error.js">
+      <script>
+        setTimeout(() => {
+            if(document.getElementById("root").innerHTML !== '') return;
+            document.getElementById("error").innerHTML = "Oops..."
+        }, 2000); 
+      </script>
     </div>
     <!--
       This HTML file is a template.
